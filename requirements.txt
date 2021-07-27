@@ -1,0 +1,4 @@
+django>=2.2.2
+Pillow
+whitenoise
+gunicorn
