@@ -1,6 +1,6 @@
 asgiref
 certifi
-charset-normalize
+charset-normalizer
 colorama
 dj-database-url
 Django
