@@ -1,0 +1,40 @@
+
+.register-form{
+    margin:1%;
+    inherits: div;
+    inherits: input;
+    
+}
+
+h2{
+    
+    margin:10px;
+}
+.border{
+    border: 1px solid black;
+}
+.carousel-item{
+    height:20rem;
+    
+    
+    background-color: #777;
+}
+#about-us-div{
+    margin-top: 3rem;
+    padding: 10rem;
+    margin: auto;
+    text-align: center;
+
+}
+a:link {
+    text-decoration: none;
+}
+h1{
+    text-align: center;
+    margin:auto;
+    padding:1%
+}
+.clearfix{
+    margin:1%;
+    padding: 1%;
+}

@@ -1,0 +1,99 @@
+{% extends 'blog/layout.html'%}
+
+{% block body %}
+<!-- Form Start -->
+{% load static %}
+{% if user.is_superuser %}
+<div class="d-grid gap-2">
+    <button class="btn btn-dark" type="button" id="create-button-form" onclick="createArticle()">Create New Article</button>
+  </div>
+<div class="container" id="create-article-form" style="display: none;">
+    <div class="row">
+        <div class="col-12">
+            <form class="register-form" method="POST" action="{% url 'create_post' %}" enctype="multipart/form-data">
+                {% csrf_token%}
+                <fieldset>
+                  <legend>Create New Article</legend>
+                  <div class="form-group">
+                    <label for="title" class="form-label mt-4">Title</label>
+                    <input name="title" type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="Article Title">
+                    
+                  </div>
+                  <div class="form-group">
+                    <label for="content" class="form-label mt-4">Content</label>
+                    <textarea style="height: 50vw;" name="content" type="text" class="form-control" id="content" placeholder="Content"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="imageUrl" class="form-label mt-4">İmage URL</label>
+                    <input name="image" type="file" class="form-control" id="imageUrl" aria-describedby="emailHelp" placeholder="İmage URL">
+                    
+                </div>
+                  <div class="form-group">
+                    <label  for="categories" class="form-label mt-4">Categories</label>
+                    <select class="form-select" id="categories" name="category">
+                        {% for category in categories %}
+                      <option>{{ category.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <input class="btn btn-danger register-form" type="submit" value="Create">
+              </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+<!--Form End -->
+{% if message %}
+<h1>{{ message }}</h1>
+{% elif messag %}
+<h1>{{ messag }}</h1>
+{% endif %}
+<!-- Content Start -->
+{% for post in posts%}
+<br>
+  <div class="container post">
+    <div class="row">
+      
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 ">
+          
+        <a href="{% url 'article' post.id %}"><img style="width:15rem; " src="/media/{{ post.image}}" alt="..." ></a>
+      </div> 
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+        <div class="card-body">
+          
+        <a href="{% url 'article' post.id %}"><h5 class="card-title">{{post.title}}</h5></a>
+        <p class="card-text content-abb">{{post.content}}</p>
+        <p class="card-text"><small class="text-muted"><a href="{% url 'profile' post.author.id %}">{{post.author}}</a> </small></p>
+        <p class="card-text"><small class="text-muted">{{post.field.name}} | Likes: <span id="like-count-{{post.id}}">{{post.likes.all.count}}</span> 
+          {% if user.is_authenticated %}
+          <svg xmlns="http://www.w3.org/2000/svg" 
+          width="16" 
+          height="16" 
+          fill="
+          {% if user in post.likes.all %}
+          red
+          {% else %}
+          black
+          {% endif %}"
+          class="bi bi-heart-fill" 
+          viewBox="0 0 16 16"
+          data-id="{{ post.id }}"
+          data-user="{{ post.author.id }}">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg> 
+          {% endif %}
+          |<span class="date-span">{{post.date}}</span></small></p>
+          {% if message %}
+            <a href="{% url 'blog_delete' post.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+      </div></div>
+    </div> 
+  </div>
+  {% endfor %}
+  
+<!-- Content End -->
+
+    
+<script src="{% static 'blog/js/main.js' %}"></script>  
+{% endblock %}
+

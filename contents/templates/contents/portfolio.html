@@ -39,6 +39,11 @@
         h2, h3, h4, li, p {
             color: #100e17;
         }
+        a:hover{
+            color: rgb(177, 43, 143);
+
+        }
+        
     </style>
 </head>
 <body>
@@ -67,7 +72,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color:white;">
                         <ul class="navbar-nav mr-auto ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#mh-home">Home</a>
+                                <a  class="nav-link" href="#mh-home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#mh-about">About</a>
@@ -82,13 +87,16 @@
                                 <a class="nav-link" href="#mh-experience">Education</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#mh-portfolio">Projects</a>
+                                <a  class="nav-link" href="#mh-portfolio"><u>Projects</u> </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#mh-certification">courses&certfications</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/static/assets/sai_ganesh_resume.pdf" target="_blank">Resume</a>
+                            </li>
+                            <li  class="nav-item">
+                                <a style="color: rgb(214, 34, 34);" class="nav-link" href="{% url 'index' %}" target="_blank">Blog</a>
                             </li>
                             
                         </ul>
@@ -624,7 +632,8 @@
                             
                             <br><br>
                             
-                                <a href="https://iamdsg0196.herokuapp.com/" class="btn btn-fill" target="_blank">Live Demo</a>
+                                <a href="{% url 'index' %}" class="btn btn-fill" target="_blank">Live Demo</a>
+                                
                             
                             <br>
                         </div>

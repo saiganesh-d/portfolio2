@@ -1,0 +1,90 @@
+{% extends 'blog/layout.html'%}
+
+{% block body %}
+
+{% load static %}
+
+<!-- Article Start -->
+<div class="clearfix">
+   
+    <img style="width: 25rem;" src="/media/{{ post.image}}" class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
+    <h3>{{ post.title}}</h3>
+    <p>{{ post.content| safe }}</p>
+    <p class="card-text"><small class="text-muted"><a href="{% url 'profile' post.author.id %}">{{post.author}}</a> </small></p>
+        <p class="card-text"><small class="text-muted">{{post.field.name}} | Likes: <span id="like-count-{{post.id}}">{{post.likes.all.count}}</span> <svg xmlns="http://www.w3.org/2000/svg" 
+          width="16" 
+          height="16" 
+          fill="
+          {% if user in post.likes.all %}
+          red
+          {% else %}
+          black
+          {% endif %}"
+          class="bi bi-heart-fill" 
+          viewBox="0 0 16 16"
+          data-id="{{ post.id }}"
+          data-user="{{ post.author.id }}">
+          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg> 
+          |<span class="date-span">{{post.date}}</span></small></p>
+          
+          
+  </div>
+
+  
+<!-- Article End -->
+
+<!--Make Comment Start-->
+{% if user.is_authenticated %}
+  <h5 style="text-align: center; text-decoration: 1px grey underline;" id="comment-form">Comment</h5>
+  <div id="show-comment-form" class="card border-light mb-3 " style="text-align: center; margin-bottom: 15%;display: none;" >
+      <form class="register-form" method="POST" action="{% url 'comment' post.id %}">
+          {% csrf_token%}
+          <fieldset>
+            
+            <small  class="form-text text-muted" style="display: block;">Leave a comment below</small>
+            <div class="form-group">
+            
+              <textarea style="text-align: center;" name="comment" type="text" class="form-control" placeholder="Comment..."></textarea>
+          </div>
+          
+            <input class="btn btn-success register-form" type="submit" value="Send">
+        </form>
+  </div>
+  {% else %}
+    <h5 style="text-align: center; text-decoration: 1px grey underline;"> <a class="nav-link" href="{% url 'login' %}">Log In to comment</a></h5>
+   
+  {% endif %}
+<!--Make Comment End-->
+
+<!--Comment Start-->
+
+
+<h5 style="text-align: center; text-decoration: 1px grey underline;" id="comment">Show Comments</h5>
+<br>
+<div id="show-comment" style="display: none;">
+    {% for comment in comments %}
+<div class="card border-light mb-3" style="text-align: center; margin-bottom: 15%;">
+    <div class="card-body">
+      <p class="card-text">{{ comment.body }}</p>
+    </div>
+    <p class="card-text"><small class="text-muted"> {{comment.user }}</small> | <small class="text-muted">{{comment.time }}</small></p>
+</div>
+<hr>
+<br>
+{% endfor %}
+</div>
+
+
+
+  
+
+<!--Comment End-->
+
+{% load static %}
+    
+<script src="{% static 'blog/js/article.js' %}"></script>
+
+    
+{% endblock %}
+

@@ -1,0 +1,40 @@
+{% extends 'blog/layout.html'%}
+
+{% block body %}
+<!-- Form Start -->
+{% load static %}
+{% if message %}
+<div class="alert alert-dismissible alert-info" >
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <p>{{ message}}</p>
+  </div>
+{% endif%}
+
+<div class="container" id="create-article-form">
+    <div class="row">
+        <div class="col-12">
+            <form class="register-form" method="POST" action="{% url 'contact' %}">
+                {% csrf_token%}
+                <fieldset>
+                  <legend>Contact with us</legend>
+                  <small  class="form-text text-muted" style="display: block;">If you have anything on your mind, let us know.</small>
+                  <div class="form-group">
+                    <label for="subject" class="form-label mt-4">Subject</label>
+                    <input name="subject" type="text" class="form-control" id="subject" aria-describedby="emailHelp" placeholder="Subject">
+                    
+                  </div>
+                  <div class="form-group">
+                    <label for="content" class="form-label mt-4">Content</label>
+                    <textarea name="content" type="text" class="form-control" id="content" placeholder="Content"></textarea>
+                </div>
+                
+                  <input class="btn btn-success register-form" type="submit" value="Send">
+              </form>
+        </div>
+    </div>
+</div>
+
+
+<!--Form End -->
+      
+{% endblock %}

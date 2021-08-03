@@ -5,6 +5,8 @@ from os.path import splitext
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 import joblib
+import pandas as pd
+from blog import views
 
 # Create your views here.
 def city(request):
@@ -57,6 +59,9 @@ def city(request):
 def home(request):
     
     return render(request, 'contents/portfolio.html')
+
+def ipl(request):
+    return render(request, "contents/ipl.html")
 
 
 
