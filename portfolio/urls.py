@@ -28,6 +28,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('city', views.city, name='city'),
+    path('sales', views.sales, name='sales'),
     
 
     
